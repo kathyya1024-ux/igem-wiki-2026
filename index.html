@@ -1,0 +1,1237 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>iGEM 2026 · 解码生命，重塑未来</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Noto+Sans+SC:wght@400;500;700;900&display=swap" rel="stylesheet" />
+  <style>
+    /* ─── Reset & Base ─────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --mint:   #5ECFB1;
+      --sky:    #74C9F0;
+      --coral:  #FF8B6A;
+      --lemon:  #FFD166;
+      --lavender: #B8A9F5;
+      --cream:  #FFF9EF;
+      --dark:   #2C2F3A;
+      --card-bg: #FFFFFF;
+      --radius: 20px;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Noto Sans SC', 'Nunito', sans-serif;
+      background: var(--cream);
+      color: var(--dark);
+      overflow-x: hidden;
+    }
+
+    /* ─── Nav ───────────────────────────────────────────────────────── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 999;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 14px 40px;
+      background: rgba(255,249,239,.88);
+      backdrop-filter: blur(12px);
+      border-bottom: 2px solid rgba(94,207,177,.25);
+      box-shadow: 0 2px 16px rgba(116,201,240,.15);
+    }
+    .nav-logo {
+      font-family: 'Nunito', sans-serif;
+      font-weight: 900; font-size: 1.35rem;
+      background: linear-gradient(135deg, var(--mint), var(--sky));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .nav-links { display: flex; gap: 6px; }
+    .nav-links a {
+      text-decoration: none; color: var(--dark);
+      font-weight: 700; font-size: .85rem;
+      padding: 7px 14px; border-radius: 50px;
+      transition: background .2s, color .2s;
+    }
+    .nav-links a:hover { background: var(--mint); color: #fff; }
+
+    /* ─── Hero ──────────────────────────────────────────────────────── */
+    #hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      position: relative; overflow: hidden;
+      background: linear-gradient(160deg, #d4f5eb 0%, #c9e8f9 50%, #ffe8d6 100%);
+      text-align: center; padding: 120px 20px 60px;
+    }
+    /* floating blobs */
+    .blob { position: absolute; border-radius: 50%; filter: blur(60px); opacity: .45; animation: drift 8s ease-in-out infinite alternate; }
+    .blob1 { width: 420px; height: 420px; background: var(--mint);  top: -80px;  left: -100px; animation-delay: 0s; }
+    .blob2 { width: 320px; height: 320px; background: var(--sky);   bottom: -60px; right: -80px; animation-delay: -3s; }
+    .blob3 { width: 240px; height: 240px; background: var(--lemon); top: 40%;  left: 55%;   animation-delay: -5s; }
+    @keyframes drift { from { transform: translate(0,0) scale(1); } to { transform: translate(30px,20px) scale(1.08); } }
+
+    /* dna helix decoration */
+    .dna-svg { position: absolute; right: 6%; top: 15%; opacity: .18; animation: spin 20s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .hero-badge {
+      display: inline-block; background: var(--mint); color: #fff;
+      font-weight: 800; font-size: .8rem; letter-spacing: .12em; text-transform: uppercase;
+      padding: 6px 18px; border-radius: 50px; margin-bottom: 22px;
+      animation: fadeUp .8s ease both;
+    }
+    .hero-title {
+      font-family: 'Nunito', sans-serif; font-weight: 900;
+      font-size: clamp(2.8rem, 7vw, 5.5rem); line-height: 1.1;
+      animation: fadeUp .9s ease .1s both;
+    }
+    .hero-title span { background: linear-gradient(135deg, var(--coral), var(--lemon)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .hero-sub {
+      margin-top: 18px; font-size: clamp(1rem, 2.2vw, 1.35rem);
+      color: #555; max-width: 560px; line-height: 1.7;
+      animation: fadeUp 1s ease .2s both;
+    }
+    .hero-cta {
+      margin-top: 38px; display: flex; gap: 14px; flex-wrap: wrap; justify-content: center;
+      animation: fadeUp 1s ease .35s both;
+    }
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 14px 30px; border-radius: 50px; font-weight: 800; font-size: 1rem;
+      text-decoration: none; transition: transform .2s, box-shadow .2s;
+      cursor: pointer; border: none;
+    }
+    .btn:hover { transform: translateY(-3px); box-shadow: 0 10px 28px rgba(0,0,0,.15); }
+    .btn-primary { background: linear-gradient(135deg, var(--mint), var(--sky)); color: #fff; }
+    .btn-outline { background: #fff; color: var(--dark); border: 2.5px solid var(--mint); }
+
+    /* hero floating cards */
+    .hero-cards {
+      display: flex; gap: 18px; flex-wrap: wrap; justify-content: center;
+      margin-top: 56px; animation: fadeUp 1s ease .5s both;
+    }
+    .hero-stat {
+      background: #fff; border-radius: 18px; padding: 18px 28px;
+      box-shadow: 0 6px 24px rgba(0,0,0,.08);
+      text-align: center; min-width: 130px;
+    }
+    .hero-stat .num { font-family: 'Nunito'; font-weight: 900; font-size: 2rem; color: var(--mint); }
+    .hero-stat .label { font-size: .78rem; color: #888; margin-top: 2px; }
+
+    /* scroll indicator */
+    .scroll-down {
+      position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%);
+      animation: bounce 2s ease-in-out infinite;
+      font-size: 1.6rem; cursor: pointer; color: var(--dark); opacity: .5;
+    }
+    @keyframes bounce { 0%,100%{transform:translateX(-50%) translateY(0)} 50%{transform:translateX(-50%) translateY(8px)} }
+
+    @keyframes fadeUp { from { opacity:0; transform:translateY(30px); } to { opacity:1; transform:translateY(0); } }
+
+    /* ─── Sections common ───────────────────────────────────────────── */
+    section { padding: 90px 20px; position: relative; }
+    .section-inner { max-width: 1100px; margin: 0 auto; }
+    .section-tag {
+      display: inline-block; font-weight: 800; font-size: .75rem; letter-spacing: .15em;
+      text-transform: uppercase; padding: 5px 14px; border-radius: 50px;
+      margin-bottom: 14px;
+    }
+    .tag-mint { background: #d6f6ee; color: var(--mint); }
+    .tag-coral { background: #ffe3d8; color: var(--coral); }
+    .tag-lemon { background: #fff4cc; color: #c8940a; }
+    .tag-lavender { background: #ede8ff; color: var(--lavender); }
+    .tag-sky { background: #d8f1fc; color: #3a9fd4; }
+    .section-title {
+      font-family: 'Nunito'; font-weight: 900;
+      font-size: clamp(1.8rem, 4vw, 2.8rem); line-height: 1.2; margin-bottom: 14px;
+    }
+    .section-desc { color: #666; font-size: 1.05rem; line-height: 1.8; max-width: 640px; }
+
+    /* reveal on scroll */
+    .reveal { opacity: 0; transform: translateY(40px); transition: opacity .7s ease, transform .7s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ─── Overview TOC ──────────────────────────────────────────────── */
+    #overview { background: #fff; }
+    .toc-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(200px,1fr)); gap: 20px;
+      margin-top: 44px;
+    }
+    .toc-card {
+      background: var(--cream); border-radius: 20px; padding: 26px 22px;
+      display: flex; flex-direction: column; gap: 10px;
+      border: 2.5px solid transparent;
+      transition: border-color .25s, transform .25s, box-shadow .25s;
+      cursor: pointer; text-decoration: none; color: inherit;
+    }
+    .toc-card:hover { border-color: var(--mint); transform: translateY(-6px); box-shadow: 0 12px 32px rgba(94,207,177,.18); }
+    .toc-icon { font-size: 2.2rem; }
+    .toc-num { font-family: 'Nunito'; font-weight: 900; font-size: .75rem; color: #aaa; letter-spacing: .1em; }
+    .toc-label { font-weight: 800; font-size: 1rem; line-height: 1.4; }
+
+    /* ─── What is iGEM ──────────────────────────────────────────────── */
+    #what { background: linear-gradient(160deg, #edfaf5 0%, #e8f6fd 100%); }
+    .what-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-top: 44px;
+    }
+    @media (max-width:700px) { .what-grid { grid-template-columns: 1fr; } }
+    .what-card {
+      background: #fff; border-radius: var(--radius); padding: 30px;
+      box-shadow: 0 4px 20px rgba(0,0,0,.06);
+      display: flex; gap: 18px; align-items: flex-start;
+      transition: transform .25s;
+    }
+    .what-card:hover { transform: translateY(-4px); }
+    .what-card-icon { font-size: 2.4rem; flex-shrink: 0; }
+    .what-card h3 { font-weight: 800; font-size: 1.05rem; margin-bottom: 8px; }
+    .what-card p { color: #666; font-size: .92rem; line-height: 1.7; }
+
+    /* highlight banner */
+    .highlight-banner {
+      margin-top: 36px; background: linear-gradient(135deg, var(--mint), var(--sky));
+      border-radius: var(--radius); padding: 26px 32px; color: #fff;
+      font-weight: 700; font-size: 1.1rem; line-height: 1.6; text-align: center;
+    }
+
+    /* ─── DBTL Cycle ────────────────────────────────────────────────── */
+    #dbtl { background: #fff; }
+    .dbtl-ring {
+      display: flex; gap: 0; justify-content: center; align-items: center;
+      flex-wrap: wrap; margin-top: 48px; gap: 14px;
+    }
+    .dbtl-step {
+      background: var(--cream); border-radius: 20px; padding: 28px 22px; text-align: center;
+      width: 210px; position: relative;
+      box-shadow: 0 4px 18px rgba(0,0,0,.06);
+      transition: transform .3s, box-shadow .3s;
+    }
+    .dbtl-step:hover { transform: scale(1.06); box-shadow: 0 12px 30px rgba(0,0,0,.12); }
+    .dbtl-step .emoji { font-size: 2.8rem; display: block; margin-bottom: 12px; }
+    .dbtl-step h3 { font-family:'Nunito'; font-weight: 900; font-size: 1.1rem; margin-bottom: 8px; }
+    .dbtl-step p { font-size: .85rem; color: #666; line-height: 1.6; }
+    .dbtl-step.d { border-top: 4px solid var(--mint); }
+    .dbtl-step.b { border-top: 4px solid var(--sky); }
+    .dbtl-step.t { border-top: 4px solid var(--coral); }
+    .dbtl-step.l { border-top: 4px solid var(--lavender); }
+    .dbtl-arrow { font-size: 1.8rem; color: #ccc; flex-shrink:0; }
+
+    /* ─── Villages ──────────────────────────────────────────────────── */
+    #villages { background: linear-gradient(160deg, #fff4f0 0%, #fff9ef 100%); }
+    .village-tabs {
+      display: flex; gap: 10px; margin: 32px 0 24px; flex-wrap: wrap;
+    }
+    .vtab {
+      padding: 8px 20px; border-radius: 50px; font-weight: 700; font-size: .88rem;
+      border: 2px solid transparent; cursor: pointer; transition: .2s;
+      background: #fff;
+    }
+    .vtab.env { border-color: var(--mint); color: var(--mint); }
+    .vtab.med { border-color: var(--coral); color: var(--coral); }
+    .vtab.tech { border-color: var(--lavender); color: var(--lavender); }
+    .vtab.env.active { background: var(--mint); color: #fff; }
+    .vtab.med.active { background: var(--coral); color: #fff; }
+    .vtab.tech.active { background: var(--lavender); color: #fff; }
+    .village-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(160px,1fr)); gap: 14px;
+    }
+    .vtag {
+      background: #fff; border-radius: 14px; padding: 16px 14px;
+      display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: .9rem;
+      box-shadow: 0 3px 12px rgba(0,0,0,.06);
+      transition: transform .2s;
+    }
+    .vtag:hover { transform: translateY(-4px); }
+    .vtag .dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+    .dot-env { background: var(--mint); }
+    .dot-med { background: var(--coral); }
+    .dot-tech { background: var(--lavender); }
+
+    .village-note {
+      margin-top: 24px; background: #fff; border-radius: var(--radius); padding: 20px 24px;
+      border-left: 4px solid var(--lemon); font-size: .95rem; line-height: 1.7; color: #555;
+    }
+
+    /* ─── Teams ─────────────────────────────────────────────────────── */
+    #teams { background: #fff; }
+    .teams-grid {
+      display: grid; grid-template-columns: repeat(3,1fr); gap: 22px; margin-top: 44px;
+    }
+    @media (max-width:700px){ .teams-grid { grid-template-columns: 1fr; } }
+    .team-card {
+      border-radius: var(--radius); padding: 28px 24px; text-align: center;
+      box-shadow: 0 4px 20px rgba(0,0,0,.07); transition: transform .25s;
+    }
+    .team-card:hover { transform: translateY(-6px); }
+    .team-card.hs { background: linear-gradient(135deg, #d6f6ee, #c9e8f9); }
+    .team-card.ug { background: linear-gradient(135deg, #ffe3d8, #fff4cc); }
+    .team-card.og { background: linear-gradient(135deg, #ede8ff, #fce4f4); }
+    .team-card .icon { font-size: 3rem; margin-bottom: 14px; }
+    .team-card h3 { font-weight: 900; font-size: 1.1rem; margin-bottom: 6px; }
+    .team-card .sub { font-size: .82rem; font-weight: 700; color: #888; margin-bottom: 12px; }
+    .team-card p { font-size: .88rem; color: #555; line-height: 1.65; }
+    .special-badge {
+      display: inline-block; margin-top: 12px;
+      background: rgba(94,207,177,.15); color: var(--mint); border-radius: 50px;
+      font-size: .8rem; font-weight: 800; padding: 4px 12px;
+    }
+
+    /* ─── Timeline ───────────────────────────────────────────────────── */
+    #timeline { background: linear-gradient(160deg, #e8f6fd 0%, #edfaf5 100%); }
+    .timeline-track {
+      position: relative; margin-top: 50px;
+      display: flex; flex-direction: column; gap: 0;
+    }
+    .timeline-track::before {
+      content:''; position: absolute; left: 38px; top: 0; bottom: 0;
+      width: 3px; background: linear-gradient(to bottom, var(--mint), var(--sky), var(--coral));
+      border-radius: 2px;
+    }
+    .tl-item {
+      display: flex; gap: 26px; align-items: flex-start;
+      padding: 0 0 36px 0;
+    }
+    .tl-dot {
+      width: 80px; height: 80px; border-radius: 50%;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      flex-shrink: 0; font-weight: 900; font-size: .75rem; color: #fff; text-align: center;
+      box-shadow: 0 4px 14px rgba(0,0,0,.15); z-index: 1; line-height: 1.3;
+    }
+    .tl-dot .num { font-family:'Nunito'; font-size: 1.3rem; }
+    .d1 { background: linear-gradient(135deg, #5ECFB1, #3db89a); }
+    .d2 { background: linear-gradient(135deg, #74C9F0, #4ab2de); }
+    .d3 { background: linear-gradient(135deg, #FF8B6A, #e06a4a); }
+    .d4 { background: linear-gradient(135deg, #FFD166, #c8a030); }
+    .d5 { background: linear-gradient(135deg, #B8A9F5, #8f7ee0); }
+    .tl-body {
+      background: #fff; border-radius: 16px; padding: 20px 24px;
+      box-shadow: 0 4px 16px rgba(0,0,0,.07); flex: 1;
+      margin-top: 10px;
+    }
+    .tl-body h3 { font-weight: 900; font-size: 1.05rem; margin-bottom: 6px; }
+    .tl-body .period { font-size: .8rem; font-weight: 700; color: #aaa; margin-bottom: 10px; }
+    .tl-body ul { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; }
+    .tl-body li {
+      background: var(--cream); border-radius: 8px; padding: 4px 10px;
+      font-size: .82rem; font-weight: 600;
+    }
+
+    /* ─── Awards ─────────────────────────────────────────────────────── */
+    #awards { background: #fff; }
+    .awards-grid {
+      display: grid; grid-template-columns: repeat(3,1fr); gap: 22px; margin-top: 44px;
+    }
+    @media (max-width:700px){ .awards-grid { grid-template-columns: 1fr; } }
+    .award-card {
+      border-radius: var(--radius); padding: 28px 22px; text-align: center;
+      position: relative; overflow: hidden;
+      transition: transform .25s, box-shadow .25s;
+    }
+    .award-card:hover { transform: translateY(-6px); box-shadow: 0 16px 36px rgba(0,0,0,.1); }
+    .award-card.bronze { background: linear-gradient(160deg, #fff3e0, #ffe4b5); }
+    .award-card.silver { background: linear-gradient(160deg, #f0f4ff, #e8eeff); }
+    .award-card.gold { background: linear-gradient(160deg, #fffde0, #fff0a0); }
+    .award-medal { font-size: 3.5rem; margin-bottom: 12px; }
+    .award-card h3 { font-weight: 900; font-size: 1.15rem; margin-bottom: 10px; }
+    .award-card p { font-size: .88rem; color: #555; line-height: 1.7; }
+    .special-awards {
+      margin-top: 32px; background: linear-gradient(135deg, #2C2F3A, #3d4155);
+      border-radius: var(--radius); padding: 28px 32px; color: #fff;
+    }
+    .special-awards h3 { font-weight: 900; font-size: 1.1rem; margin-bottom: 16px; }
+    .special-chips { display: flex; flex-wrap: wrap; gap: 10px; }
+    .chip {
+      background: rgba(255,255,255,.12); border-radius: 50px;
+      padding: 7px 16px; font-size: .85rem; font-weight: 700; color: #fff;
+      border: 1.5px solid rgba(255,255,255,.2);
+    }
+
+    /* ─── HP Section ─────────────────────────────────────────────────── */
+    #hp { background: linear-gradient(160deg, #ede8ff 0%, #fce4f4 100%); }
+    .hp-4a {
+      display: grid; grid-template-columns: repeat(2,1fr); gap: 18px; margin-top: 36px;
+    }
+    @media (max-width:600px){ .hp-4a { grid-template-columns: 1fr; } }
+    .a-card {
+      background: #fff; border-radius: 16px; padding: 22px;
+      box-shadow: 0 4px 16px rgba(0,0,0,.07);
+    }
+    .a-card .a-num { font-family:'Nunito'; font-weight: 900; font-size: 1.4rem; color: var(--lavender); }
+    .a-card h3 { font-weight: 800; font-size: 1rem; margin: 6px 0; }
+    .a-card p { font-size: .88rem; color: #666; line-height: 1.65; }
+
+    .hp-stages { margin-top: 40px; }
+    .hp-stages h3 { font-weight: 900; font-size: 1.2rem; margin-bottom: 18px; }
+    .stages-list { display: flex; flex-direction: column; gap: 12px; }
+    .stage-row {
+      background: #fff; border-radius: 14px; padding: 16px 22px;
+      display: flex; align-items: center; gap: 16px;
+      box-shadow: 0 3px 12px rgba(0,0,0,.06);
+    }
+    .stage-row .s-num {
+      background: linear-gradient(135deg, var(--lavender), #d4aaff);
+      color: #fff; border-radius: 10px; width: 36px; height: 36px;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 900; font-size: .9rem; flex-shrink: 0;
+    }
+    .stage-row .s-name { font-weight: 800; font-size: .95rem; min-width: 90px; }
+    .stage-row .s-desc { font-size: .85rem; color: #666; }
+
+    /* case study */
+    .case-study {
+      margin-top: 44px; background: #fff; border-radius: var(--radius); padding: 32px;
+      box-shadow: 0 6px 24px rgba(0,0,0,.08);
+    }
+    .case-study .cs-header { display: flex; gap: 18px; align-items: center; margin-bottom: 18px; }
+    .cs-emoji { font-size: 3rem; }
+    .cs-title h3 { font-weight: 900; font-size: 1.15rem; margin-bottom: 4px; }
+    .cs-title p { font-size: .85rem; color: #888; }
+    .cs-medals { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+    .medal-chip {
+      background: linear-gradient(135deg, var(--lemon), #ffc430);
+      color: #7a5100; border-radius: 50px; padding: 5px 14px;
+      font-size: .8rem; font-weight: 800;
+    }
+    .case-study p { font-size: .92rem; color: #555; line-height: 1.75; }
+    .tips-list { display: flex; flex-direction: column; gap: 14px; margin-top: 32px; }
+    .tip-item {
+      background: #fff; border-radius: 14px; padding: 16px 20px;
+      display: flex; gap: 14px; align-items: flex-start;
+      box-shadow: 0 3px 12px rgba(0,0,0,.06);
+    }
+    .tip-num {
+      background: var(--lavender); color: #fff; border-radius: 8px;
+      width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;
+      font-weight: 900; font-size: .85rem; flex-shrink: 0;
+    }
+    .tip-item p { font-size: .88rem; color: #555; line-height: 1.65; }
+    .tip-item strong { color: var(--dark); }
+
+    /* ─── China Stats ─────────────────────────────────────────────────── */
+    #china { background: #fff; }
+    .stats-hero {
+      display: grid; grid-template-columns: repeat(auto-fit,minmax(180px,1fr)); gap: 22px;
+      margin-top: 44px;
+    }
+    .stat-big {
+      border-radius: var(--radius); padding: 30px 22px; text-align: center;
+      transition: transform .25s;
+    }
+    .stat-big:hover { transform: translateY(-6px); }
+    .sb1 { background: linear-gradient(135deg, #d6f6ee, #c9e8f9); }
+    .sb2 { background: linear-gradient(135deg, #ffe3d8, #fff4cc); }
+    .sb3 { background: linear-gradient(135deg, #ede8ff, #fce4f4); }
+    .sb4 { background: linear-gradient(135deg, #fff4cc, #d6f6ee); }
+    .stat-big .big-num { font-family:'Nunito'; font-weight: 900; font-size: 3rem; color: var(--dark); }
+    .stat-big .big-label { font-size: .85rem; color: #555; margin-top: 6px; font-weight: 600; line-height: 1.5; }
+
+    /* ─── Value / Why ─────────────────────────────────────────────────── */
+    #value { background: linear-gradient(160deg, #fff4f0 0%, #fffde0 100%); }
+    .value-grid {
+      display: grid; grid-template-columns: repeat(2,1fr); gap: 22px; margin-top: 44px;
+    }
+    @media (max-width:600px){ .value-grid { grid-template-columns: 1fr; } }
+    .value-card {
+      background: #fff; border-radius: var(--radius); padding: 28px 24px;
+      box-shadow: 0 4px 16px rgba(0,0,0,.06); display: flex; gap: 16px; align-items: flex-start;
+      transition: transform .2s;
+    }
+    .value-card:hover { transform: translateY(-4px); }
+    .value-card .vc-icon { font-size: 2.4rem; flex-shrink: 0; }
+    .value-card h3 { font-weight: 800; font-size: 1.05rem; margin-bottom: 8px; }
+    .value-card p { font-size: .88rem; color: #666; line-height: 1.7; }
+
+    /* ─── Who is this for ──────────────────────────────────────────────── */
+    #who { background: #fff; }
+    .who-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-top: 44px; }
+    @media (max-width:600px){ .who-cols { grid-template-columns: 1fr; } }
+    .checklist {
+      background: var(--cream); border-radius: var(--radius); padding: 28px 26px;
+    }
+    .checklist h3 { font-weight: 900; font-size: 1.1rem; margin-bottom: 16px; }
+    .checklist ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .checklist li {
+      display: flex; align-items: flex-start; gap: 10px;
+      font-size: .92rem; line-height: 1.6;
+    }
+    .checklist li::before {
+      content:'✓'; color: var(--mint); font-weight: 900; font-size: 1rem; flex-shrink: 0; margin-top: 1px;
+    }
+    .timing-cards { display: flex; flex-direction: column; gap: 16px; }
+    .timing-card {
+      border-radius: 16px; padding: 22px 24px;
+      box-shadow: 0 4px 14px rgba(0,0,0,.07);
+    }
+    .timing-card.green { background: linear-gradient(135deg, #d6f6ee, #c9e8f9); }
+    .timing-card.yellow { background: linear-gradient(135deg, #fff4cc, #ffe3d8); }
+    .timing-card .grade { font-family:'Nunito'; font-weight: 900; font-size: 1.3rem; margin-bottom: 6px; }
+    .timing-card p { font-size: .88rem; color: #555; line-height: 1.65; }
+
+    /* ─── Cost Section ─────────────────────────────────────────────────── */
+    #cost { background: linear-gradient(160deg, #e8f6fd 0%, #edfaf5 100%); }
+    .cost-table {
+      background: #fff; border-radius: var(--radius); overflow: hidden;
+      box-shadow: 0 6px 24px rgba(0,0,0,.08); margin-top: 36px;
+    }
+    .ct-row {
+      display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 0;
+      border-bottom: 1px solid #f0f0f0;
+    }
+    .ct-row:last-child { border-bottom: none; }
+    .ct-row.header {
+      background: linear-gradient(135deg, var(--mint), var(--sky)); color: #fff;
+    }
+    .ct-cell {
+      padding: 16px 22px; font-size: .9rem; font-weight: 600;
+      display: flex; align-items: center;
+    }
+    .ct-row.header .ct-cell { font-weight: 800; font-size: .88rem; }
+    .ct-row:not(.header):hover { background: var(--cream); }
+    .cost-note {
+      margin-top: 18px; font-size: .88rem; color: #888; line-height: 1.7;
+    }
+
+    /* ─── Footer ─────────────────────────────────────────────────────── */
+    footer {
+      background: linear-gradient(160deg, #2C2F3A, #3d4155);
+      color: rgba(255,255,255,.85); padding: 60px 20px;
+      text-align: center;
+    }
+    .footer-inner { max-width: 700px; margin: 0 auto; }
+    footer h2 {
+      font-family:'Nunito'; font-weight: 900; font-size: 2.2rem; color: #fff; margin-bottom: 14px;
+    }
+    footer p { font-size: 1rem; line-height: 1.8; margin-bottom: 28px; }
+    .footer-links { display: flex; justify-content: center; gap: 14px; flex-wrap: wrap; margin-bottom: 36px; }
+    .footer-links a {
+      color: var(--mint); font-weight: 700; font-size: .9rem; text-decoration: none;
+      border-bottom: 2px solid transparent;
+      transition: border-color .2s;
+    }
+    .footer-links a:hover { border-color: var(--mint); }
+    footer .small { font-size: .78rem; color: rgba(255,255,255,.4); margin-top: 20px; }
+
+    /* ─── Mobile ─────────────────────────────────────────────────────── */
+    @media (max-width: 768px) {
+      nav { padding: 12px 16px; }
+      .nav-links { display: none; }
+      .dbtl-ring { flex-direction: column; align-items: center; }
+      .dbtl-arrow { transform: rotate(90deg); }
+      .what-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ─── Animated counters ──────────────────────────────────────────── */
+    .counter { display: inline-block; }
+
+    /* Cute decorative elements */
+    .deco-star { position: absolute; animation: twinkle 3s ease-in-out infinite; }
+    @keyframes twinkle { 0%,100%{opacity:.3;transform:scale(1);} 50%{opacity:1;transform:scale(1.3);} }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════ NAV -->
+<nav>
+  <div class="nav-logo">🧬 iGEM 2026</div>
+  <div class="nav-links">
+    <a href="#what">是什么</a>
+    <a href="#dbtl">研究方法</a>
+    <a href="#villages">研究方向</a>
+    <a href="#teams">参赛资格</a>
+    <a href="#timeline">赛程</a>
+    <a href="#awards">奖项</a>
+    <a href="#hp">人类实践</a>
+    <a href="#china">中国力量</a>
+    <a href="#value">价值</a>
+    <a href="#cost">费用</a>
+  </div>
+</nav>
+
+<!-- ══════════════════════════════════════════ HERO -->
+<section id="hero">
+  <div class="blob blob1"></div>
+  <div class="blob blob2"></div>
+  <div class="blob blob3"></div>
+
+  <!-- DNA helix SVG decoration -->
+  <svg class="dna-svg" width="120" height="280" viewBox="0 0 120 280" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M20,0 C60,30 60,70 20,100 C60,130 60,170 20,200 C60,230 60,270 20,280" stroke="#5ECFB1" stroke-width="3" fill="none"/>
+    <path d="M100,0 C60,30 60,70 100,100 C60,130 60,170 100,200 C60,230 60,270 100,280" stroke="#74C9F0" stroke-width="3" fill="none"/>
+    <circle cx="60" cy="25" r="5" fill="#FF8B6A"/>
+    <circle cx="60" cy="75" r="5" fill="#FFD166"/>
+    <circle cx="60" cy="125" r="5" fill="#B8A9F5"/>
+    <circle cx="60" cy="175" r="5" fill="#5ECFB1"/>
+    <circle cx="60" cy="225" r="5" fill="#FF8B6A"/>
+    <line x1="24" y1="25" x2="96" y2="25" stroke="#FF8B6A" stroke-width="2" opacity=".5"/>
+    <line x1="24" y1="75" x2="96" y2="75" stroke="#FFD166" stroke-width="2" opacity=".5"/>
+    <line x1="24" y1="125" x2="96" y2="125" stroke="#B8A9F5" stroke-width="2" opacity=".5"/>
+    <line x1="24" y1="175" x2="96" y2="175" stroke="#5ECFB1" stroke-width="2" opacity=".5"/>
+    <line x1="24" y1="225" x2="96" y2="225" stroke="#FF8B6A" stroke-width="2" opacity=".5"/>
+  </svg>
+
+  <div style="position:relative;z-index:2;">
+    <div class="hero-badge">🌍 iGEM 2026 · 国际基因工程机器大赛</div>
+    <h1 class="hero-title">解码生命<br><span>重塑未来</span></h1>
+    <p class="hero-sub">全球合成生物学顶级学术赛事 · 让高中生站上国际科研舞台的机会</p>
+
+    <div class="hero-cta">
+      <a href="#what" class="btn btn-primary">🔬 了解 iGEM</a>
+      <a href="#overview" class="btn btn-outline">📋 查看目录</a>
+    </div>
+
+    <div class="hero-cards">
+      <div class="hero-stat"><div class="num">50<span style="font-size:1.2rem">+</span></div><div class="label">参赛国家</div></div>
+      <div class="hero-stat"><div class="num">400<span style="font-size:1.2rem">+</span></div><div class="label">支队伍</div></div>
+      <div class="hero-stat"><div class="num">10,000<span style="font-size:1.2rem">+</span></div><div class="label">名参赛者</div></div>
+      <div class="hero-stat"><div class="num">2003</div><div class="label">MIT 创立</div></div>
+    </div>
+  </div>
+
+  <div class="scroll-down" onclick="document.getElementById('overview').scrollIntoView({behavior:'smooth'})">⬇</div>
+</section>
+
+<!-- ══════════════════════════════════════════ OVERVIEW / TOC -->
+<section id="overview">
+  <div class="section-inner">
+    <div class="reveal">
+      <div class="section-tag tag-mint">📋 今天你将了解到</div>
+      <h2 class="section-title">本页内容目录</h2>
+    </div>
+    <div class="toc-grid reveal">
+      <a class="toc-card" href="#what">
+        <div class="toc-icon">🧬</div>
+        <div class="toc-num">01</div>
+        <div class="toc-label">iGEM 是什么？做什么研究？</div>
+      </a>
+      <a class="toc-card" href="#teams">
+        <div class="toc-icon">🎓</div>
+        <div class="toc-num">02</div>
+        <div class="toc-label">高中生能参加吗？怎么组队分工？</div>
+      </a>
+      <a class="toc-card" href="#timeline">
+        <div class="toc-icon">📅</div>
+        <div class="toc-num">03</div>
+        <div class="toc-label">一年的比赛怎么走？要交哪些材料？</div>
+      </a>
+      <a class="toc-card" href="#awards">
+        <div class="toc-icon">🏆</div>
+        <div class="toc-num">04</div>
+        <div class="toc-label">怎么评奖？能拿什么荣誉？</div>
+      </a>
+      <a class="toc-card" href="#hp">
+        <div class="toc-icon">🌐</div>
+        <div class="toc-num">05</div>
+        <div class="toc-label">人类实践是什么？顶尖队伍怎么做的？</div>
+      </a>
+      <a class="toc-card" href="#value">
+        <div class="toc-icon">✨</div>
+        <div class="toc-num">06</div>
+        <div class="toc-label">参加 iGEM 有什么价值？适合谁？</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════ WHAT IS iGEM -->
+<section id="what">
+  <div class="section-inner">
+    <div class="reveal">
+      <div class="section-tag tag-mint">🧬 PART 01</div>
+      <h2 class="section-title">iGEM 是什么？</h2>
+      <p class="section-desc">由美国麻省理工学院（MIT）于 2003 年创立，是目前全球规模最大、学术影响力最高的合成生物学国际竞赛。</p>
+    </div>
+    <div class="what-grid reveal">
+      <div class="what-card">
+        <div class="what-card-icon">🌍</div>
+        <div>
+          <h3>全球规模</h3>
+          <p>每年吸引来自 50+ 国家、400+ 支队伍、10,000+ 名参赛者；其中高中参赛队伍与日俱增。</p>
+        </div>
+      </div>
+      <div class="what-card">
+        <div class="what-card-icon">📰</div>
+        <div>
+          <h3>学术影响力</h3>
+          <p>赛事成果持续受到 Science、Nature、The Economist、BBC 等全球顶级学术期刊与主流媒体关注报道。</p>
+        </div>
+      </div>
+      <div class="what-card">
+        <div class="what-card-icon">🏢</div>
+        <div>
+          <h3>行业认可</h3>
+          <p>合成生物学领域顶尖学者、科技企业及投资机构高度认可 iGEM 经历，视其为科研潜质与创新能力的重要证明。</p>
+        </div>
+      </div>
+      <div class="what-card">
+        <div class="what-card-icon">🎯</div>
+        <div>
+          <h3>核心考察</h3>
+          <p>不是背知识点、刷题、考高分——而是像一个真正的科学家和工程师一样去思考和行动。</p>
+        </div>
+      </div>
+    </div>
+    <div class="highlight-banner reveal">
+      🚀 一次让高中生站上国际科研舞台的机会！<br>
+      <span style="font-size:.9rem;font-weight:500;opacity:.9;">与麻省理工、剑桥大学的本科生和研究生使用相同的材料、相同的评审标准</span>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════ DBTL -->
+<section id="dbtl">
+  <div class="section-inner">
+    <div class="reveal">
+      <div class="section-tag tag-sky">🔄 研究逻辑</div>
+      <h2 class="section-title">DBTL 循环</h2>
+      <p class="section-desc">工程学经典流程，也是硅谷顶尖科技公司验证产品、顶级实验室开展研究时遵循的基本逻辑。</p>
+    </div>
+    <div class="dbtl-ring reveal">
+      <div class="dbtl-step d">
+        <span class="emoji">🔍</span>
+        <h3>Design 设计</h3>
+        <p>发现真实问题<br>提出创新解决方案</p>
+      </div>
+      <div class="dbtl-arrow">→</div>
+      <div class="dbtl-step b">
+        <span class="emoji">🔬</span>
+        <h3>Build 构建</h3>
+        <p>设计实验方案<br>搭建生物系统或计算模型</p>
+      </div>
+      <div class="dbtl-arrow">→</div>
+      <div class="dbtl-step t">
+        <span class="emoji">📊</span>
+        <h3>Test 测试</h3>
+        <p>获取实验数据<br>验证或推翻假设</p>
+      </div>
+      <div class="dbtl-arrow">→</div>
+      <div class="dbtl-step l">
+        <span class="emoji">🔄</span>
+        <h3>Learn 迭代</h3>
+        <p>分析成败原因<br>改进方案，继续下一轮</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════ VILLAGES -->
+<section id="villages">
+  <div class="section-inner">
+    <div class="reveal">
+      <div class="section-tag tag-coral">🏘 研究方向</div>
+      <h2 class="section-title">15 个研究方向（Villages）</h2>
+      <p class="section-desc">iGEM 不只属于生物学——计算机、设计、人文社科背景均受欢迎，它属于所有希望通过科技改变世界的人。</p>
+    </div>
+
+    <div class="village-grid reveal">
+      <!-- Environment -->
+      <div class="vtag"><div class="dot dot-env"></div>🌾 农业</div>
+      <div class="vtag"><div class="dot dot-env"></div>🌱 生物修复</div>
+      <div class="vtag"><div class="dot dot-env"></div>🌡️ 气候危机</div>
+      <div class="vtag"><div class="dot dot-env"></div>🦋 自然保护</div>
+      <div class="vtag"><div class="dot dot-env"></div>💄 时尚与美妆</div>
+      <div class="vtag"><div class="dot dot-env"></div>🍎 食品与营养</div>
+      <!-- Medical -->
+      <div class="vtag"><div class="dot dot-med"></div>🩺 检测诊断</div>
+      <div class="vtag"><div class="dot dot-med"></div>🦠 传染病</div>
+      <div class="vtag"><div class="dot dot-med"></div>🎗️ 肿瘤学</div>
+      <div class="vtag"><div class="dot dot-med"></div>💊 新型治疗</div>
+      <!-- Tech -->
+      <div class="vtag"><div class="dot dot-tech"></div>🎨 艺术与设计</div>
+      <div class="vtag"><div class="dot dot-tech"></div>🏭 生物制造</div>
+      <div class="vtag"><div class="dot dot-tech"></div>🔬 基础进展</div>
+      <div class="vtag"><div class="dot dot-tech"></div>🤖 软件与 AI</div>
+      <div class="vtag"><div class="dot dot-tech"></div>🚀 太空探索</div>
+    </div>
+
+    <div class="village-note reveal">
+      <strong>🌿 环境与生态</strong>（农业·生物修复·气候危机·自然保护·时尚与美妆·食品与营养）&nbsp;
+      <strong>🏥 医疗与健康</strong>（检测诊断·传染病·肿瘤学·新型治疗）&nbsp;
+      <strong>🚀 技术与前沿</strong>（艺术与设计·生物制造·基础进展·软件与AI·太空探索）
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════ TEAMS -->
+<section id="teams">
+  <div class="section-inner">
+    <div class="reveal">
+      <div class="section-tag tag-lemon">🎓 PART 02</div>
+      <h2 class="section-title">谁能参加？怎么组队？</h2>
+      <p class="section-desc">高中生完全可以参加！三个组别使用相同评审标准，高中经历可连续升级参赛。</p>
+    </div>
+
+    <div class="teams-grid reveal">
+      <div class="team-card hs">
+        <div class="icon">🏫</div>
+        <h3>高中生组</h3>
+        <div class="sub">High School</div>
+        <p>年满 13 岁的在读高中生，18 岁以下须家长签署同意书，<strong>无需实验室基础</strong>。</p>
+        <div class="special-badge">✨ 2025年最高奖由中国深圳高中生夺得</div>
+      </div>
+      <div class="team-card ug">
+        <div class="icon">🎒</div>
+        <h3>本科生组</h3>
+        <div class="sub">Undergrad</div>
+        <p>在读本科生参加，与高中生遵循相同规则，使用相同评审标准。</p>
+      </div>
+      <div class="team-card og">
+        <div class="icon">🔭</div>
+        <h3>研究生组</h3>
+        <div class="sub">Overgrad</div>
+        <p>研究生及以上，同样的规则与标准。高中→本科→研究生，连续参赛形成系统履历。</p>
+      </div>
+    </div>
+
+    <!-- Team composition -->
+    <div style="margin-top:44px;" class="reveal">
+      <h3 style="font-weight:900;font-size:1.25rem;margin-bottom:20px;">📌 角色分工</h3>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;">
+        <div class="what-card">
+          <div class="what-card-icon">🧑‍💼</div>
+          <div>
+            <h3>PI · 项目负责人</h3>
+            <p>统筹负责整个项目进展，通常由教师或研究机构导师担任。</p>
+          </div>
+        </div>
+        <div class="what-card">
+          <div class="what-card-icon">🧑‍🔬</div>
+          <div>
+            <h3>湿队（Wet Lab）</h3>
+            <p>负责 iGEM 课题设计和实验操作，需要了解合成生物学和分子生物学知识。</p>
+          </div>
+        </div>
+        <div class="what-card">
+          <div class="what-card-icon">💻</div>
+          <div>
+            <h3>干队（Dry Lab）</h3>
+            <p>负责数学建模、网页编程、设计画图、人力资源等，欢迎理工文科各背景。</p>
+          </div>
+        </div>
+        <div class="what-card">
+          <div class="what-card-icon">👥</div>
+          <div>
+            <h3>建议规模</h3>
+            <p>15–20 个不同专业背景的学生，设 Student Leader 组织分工合作。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════ TIMELINE -->
+<section id="timeline">
+  <div class="section-inner">
+    <div class="reveal">
+      <div class="section-tag tag-sky">📅 PART 03</div>
+      <h2 class="section-title">2026 赛季全年五阶段</h2>
+      <p class="section-desc">iGEM 是一年投入，不是临时突击。⚠️ 截止时间精确至 15:00 UTC，系统自动锁定，建议提前 3–5 天完成提交。</p>
+    </div>
+
+    <div class="timeline-track reveal">
+      <div class="tl-item">
+        <div class="tl-dot d1"><div class="num">01</div><div>入门</div></div>
+        <div class="tl-body">
+          <div class="period">📅 1–3 月</div>
+          <h3>入门与组队</h3>
+          <ul>
+            <li>了解比赛规则</li><li>组建团队</li><li>确定 PI</li><li>完成官方注册</li>
+          </ul>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot d2"><div class="num">02</div><div>选题</div></div>
+        <div class="tl-body">
+          <div class="period">📅 3–5 月</div>
+          <h3>选题与立项</h3>
+          <ul>
+            <li>头脑风暴</li><li>阅读学术文献</li><li>确定研究课题</li><li>收到官方材料包</li>
+          </ul>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot d3"><div class="num">03</div><div>实验</div></div>
+        <div class="tl-body">
+          <div class="period">📅 5–8 月</div>
+          <h3>实验与研究</h3>
+          <ul>
+            <li>实验室 DBTL 循环</li><li>HP 社会实践同步推进</li><li>Wiki 网站建设</li>
+          </ul>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot d4"><div class="num">04</div><div>冲刺</div></div>
+        <div class="tl-body">
+          <div class="period">📅 9–11月初</div>
+          <h3>冲刺与提交</h3>
+          <ul>
+            <li>数据整理</li><li>视频制作</li><li>海报设计</li><li>Wiki 完善</li>
+          </ul>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot d5"><div class="num">05</div><div>大会</div></div>
+        <div class="tl-body">
+          <div class="period">📅 11月13–16日 · 法国巴黎</div>
+          <h3>🗼 Grand Jamboree 巴黎大会</h3>
+          <ul>
+            <li>现场答辩</li><li>项目展示</li><li>全球交流</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════ AWARDS -->
+<section id="awards">
+  <div class="section-inner">
+    <div class="reveal">
+      <div class="section-tag tag-lemon">🏆 PART 04</div>
+      <h2 class="section-title">怎么评奖？</h2>
+      <p class="section-desc">满足对应标准即可获奖，不与其他队伍竞争名额。</p>
+    </div>
+
+    <div class="awards-grid reveal">
+      <div class="award-card bronze">
+        <div class="award-medal">🥉</div>
+        <h3>铜牌</h3>
+        <p>完成全部必交材料（Wiki、评审表、安全表），在 Wiki 上清晰呈现项目基础内容，证明项目的基本完整性。</p>
+      </div>
+      <div class="award-card silver">
+        <div class="award-medal">🥈</div>
+        <h3>银牌</h3>
+        <p>项目具备更高的研究深度、实验数据质量和人类实践内容，体现研究的严谨性。</p>
+      </div>
+      <div class="award-card gold">
+        <div class="award-medal">🥇</div>
+        <h3>金牌</h3>
+        <p>申请至少 3 项特别奖并达标，证明项目的创新价值。</p>
+      </div>
+    </div>
+
+    <div class="special-awards reveal">
+      <h3>🎖 特别奖项 & 最高荣誉</h3>
+      <div class="special-chips" style="margin-bottom:16px;">
+        <div class="chip">🏆 Grand Prize 最高荣誉</div>
+        <div class="chip">🏘 Best Village Award</div>
+        <div class="chip">🌐 Best Integrated HP</div>
+        <div class="chip">📚 Best Education</div>
+        <div class="chip">📊 Best Model</div>
+        <div class="chip">🌐 Best Wiki</div>
+        <div class="chip">🚀 Best Entrepreneurship</div>
+        <div class="chip">16+ 项特别奖</div>
+      </div>
+      <p style="font-size:.88rem;opacity:.75;">Grand Prize（最高荣誉）高中组别将颁发给高中组别分数最高的两支队伍。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════ HP -->
+<section id="hp">
+  <div class="section-inner">
+    <div class="reveal">
+      <div class="section-tag tag-lavender">🌐 PART 05</div>
+      <h2 class="section-title">人类实践（Human Practices）</h2>
+      <p class="section-desc">iGEM 的灵魂——要求团队走进真实世界，采访用户、专家和政府机构，并把外部声音切实反映到实验设计中。</p>
+    </div>
+
+    <div class="hp-4a reveal">
+      <div class="a-card">
+        <div class="a-num">A1</div>
+        <h3>Aspiration 动机</h3>
+        <p>每次访谈前明确「想验证什么假设」，避免采访变流水账。</p>
+      </div>
+      <div class="a-card">
+        <div class="a-num">A2</div>
+        <h3>Action 行动</h3>
+        <p>具体见了谁、问了什么——记录访谈对象与核心问题。</p>
+      </div>
+      <div class="a-card">
+        <div class="a-num">A3</div>
+        <h3>Analysis 分析</h3>
+        <p>拿到了什么反馈和意外发现——包括否定性反馈如实记录。</p>
+      </div>
+      <div class="a-card">
+        <div class="a-num">A4</div>
+        <h3>Adaptation 落地</h3>
+        <p>具体改变了项目的哪个部分——HP 说了改，实验页面要有对应变化。</p>
+      </div>
+    </div>
+
+    <div class="hp-stages reveal">
+      <h3>📈 5 个递进 Stage</h3>
+      <div class="stages-list">
+        <div class="stage-row"><div class="s-num">1</div><div class="s-name">理解问题</div><div class="s-desc">公众 → 医院 → CDC，建立对问题的基础认知</div></div>
+        <div class="stage-row"><div class="s-num">2</div><div class="s-name">锁定用户</div><div class="s-desc">具体场景 &amp; 用户分层，明确目标受众</div></div>
+        <div class="stage-row"><div class="s-num">3</div><div class="s-name">建立可行性</div><div class="s-desc">技术专家 &amp; 反馈转实验，验证技术路线</div></div>
+        <div class="stage-row"><div class="s-num">4</div><div class="s-name">推向市场</div><div class="s-desc">产业 / 资本 / 合规路线图，制定商业化策略</div></div>
+        <div class="stage-row"><div class="s-num">5</div><div class="s-name">扩展影响</div><div class="s-desc">新场景 &amp; 教育闭环，放大社会价值</div></div>
+      </div>
+    </div>
+
+    <!-- Case study -->
+    <div class="case-study reveal">
+      <div class="cs-header">
+        <div class="cs-emoji">🏆</div>
+        <div class="cs-title">
+          <h3>案例拆解：GreatBay-SCIE 2025</h3>
+          <p>高中组 Grand Prize 得主 · 深圳国际交流学院（SCIE）</p>
+        </div>
+      </div>
+      <div class="cs-medals">
+        <div class="medal-chip">🏆 Grand Prize</div>
+        <div class="medal-chip">🎖 Best Integrated HP</div>
+        <div class="medal-chip">📚 Best Education</div>
+        <div class="medal-chip">📊 Best Model</div>
+        <div class="medal-chip">🌐 Best Wiki</div>
+        <div class="medal-chip">🏘 Best Village</div>
+        <div class="medal-chip">🥇 Gold Medal</div>
+      </div>
+      <p><strong>项目：ArMOLDgeddon</strong> — 安全天然的酶基除霉产品。深圳回南天每年春季潮湿气候导致室内霉菌大量滋生，市售除霉产品刺激性强、损伤墙面。核心方案：用合成生物学方法让微生物"产出"能主动杀灭霉菌的酶，做一款更安全、更持久、无刺激性气味的天然除霉产品。</p>
+    </div>
+
+    <!-- Tips -->
+    <h3 style="font-weight:900;font-size:1.15rem;margin-top:44px;margin-bottom:18px;" class="reveal">💡 HP 经验总结</h3>
+    <div class="tips-list reveal">
+      <div class="tip-item"><div class="tip-num">1</div><p><strong>访谈前先写 Aspiration：</strong>每次接触前明确「想验证什么假设」，而不是先约了再想问什么。</p></div>
+      <div class="tip-item"><div class="tip-num">2</div><p><strong>利益相关者有内在逻辑链：</strong>广泛公众 → 具体用户 → 技术专家 → 产业资本 → 新场景，后一阶段来自前一阶段留下的悬而未决的问题。</p></div>
+      <div class="tip-item"><div class="tip-num">3</div><p><strong>每条反馈在 Wiki 有证据：</strong>HP 说了改，Engineering/Model 页面就要能找到对应变化，并用超链接双向打通。</p></div>
+      <div class="tip-item"><div class="tip-num">4</div><p><strong>如实记录否定性反馈：</strong>酒店老板说「不需要」→ 如实记录、排低优先级，后续用新逻辑重新激活，比"所有人都说很棒"更有说服力。</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════ CHINA -->
+<section id="china">
+  <div class="section-inner">
+    <div class="reveal">
+      <div class="section-tag tag-coral">🇨🇳 中国力量</div>
+      <h2 class="section-title">中国高中生在 iGEM 的表现</h2>
+      <p class="section-desc">从世界第一到 70% 的制霸——iGEM 高中赛道的中国力量</p>
+    </div>
+
+    <div class="stats-hero reveal">
+      <div class="stat-big sb1">
+        <div class="big-num">70%</div>
+        <div class="big-label">2025 高中组<br>中国队伍占比</div>
+      </div>
+      <div class="stat-big sb2">
+        <div class="big-num">7/10</div>
+        <div class="big-label">2025 Top 10<br>来自中国</div>
+      </div>
+      <div class="stat-big sb3">
+        <div class="big-num">82</div>
+        <div class="big-label">2021 年单年<br>中国金牌数</div>
+      </div>
+      <div class="stat-big sb4">
+        <div class="big-num">#1</div>
+        <div class="big-label">总奖牌·金牌<br>单项奖 · 世界第一</div>
+      </div>
+    </div>
+
+    <div class="highlight-banner reveal" style="background:linear-gradient(135deg,var(--coral),var(--lemon));margin-top:30px;">
+      🎉 2025 年高中组 Grand Prize（最高奖）——GreatBay-SCIE（深圳国际交流学院）<br>
+      <span style="font-size:.88rem;font-weight:500;opacity:.9;">自 2012 年中国首支高中队参赛以来，总奖牌数、金牌数、单项奖数均已跃居世界第一</span>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════ VALUE -->
+<section id="value">
+  <div class="section-inner">
+    <div class="reveal">
+      <div class="section-tag tag-lemon">✨ PART 06</div>
+      <h2 class="section-title">参加 iGEM 有什么价值？</h2>
+      <p class="section-desc">MIT · Harvard · Oxford · 清华都有自己的队伍——招生官对这项竞赛有天然认知。</p>
+    </div>
+
+    <div class="value-grid reveal">
+      <div class="value-card">
+        <div class="vc-icon">📝</div>
+        <div>
+          <h3>深度文书素材</h3>
+          <p>完整经历从选题到国际答辩的真实科研全过程，形成独一无二的个人成长叙事，远比一次考试分数更能打动招生官。</p>
+        </div>
+      </div>
+      <div class="value-card">
+        <div class="vc-icon">🔭</div>
+        <div>
+          <h3>提前探索专业方向</h3>
+          <p>在生物、医学、AI、环境等交叉领域中亲手实践，为大学专业选择提供真实依据。</p>
+        </div>
+      </div>
+      <div class="value-card">
+        <div class="vc-icon">📄</div>
+        <div>
+          <h3>可延伸的学术成果</h3>
+          <p>优秀项目可发表论文、申请专利，并衔接青创赛等高水平赛事，构建系统科研履历。</p>
+        </div>
+      </div>
+      <div class="value-card">
+        <div class="vc-icon">🌐</div>
+        <div>
+          <h3>真实的国际化经历</h3>
+          <p>与全球顶尖同龄人、教授面对面交流，培养跨文化协作能力和英文学术写作与答辩能力。</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Compare table -->
+    <div style="margin-top:40px;" class="reveal">
+      <h3 style="font-weight:900;font-size:1.1rem;margin-bottom:18px;">🆚 iGEM vs 传统竞赛</h3>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px;">
+        <div style="background:#f5f5f5;border-radius:16px;padding:24px;">
+          <h4 style="font-weight:800;margin-bottom:12px;color:#888;">传统竞赛考察</h4>
+          <ul style="list-style:none;display:flex;flex-direction:column;gap:8px;">
+            <li style="font-size:.9rem;color:#666;">• 知识储备与解题能力</li>
+            <li style="font-size:.9rem;color:#666;">• 个人成绩与短期冲刺</li>
+            <li style="font-size:.9rem;color:#666;">• 标准题目有标准答案</li>
+          </ul>
+        </div>
+        <div style="background:linear-gradient(135deg,#d6f6ee,#c9e8f9);border-radius:16px;padding:24px;">
+          <h4 style="font-weight:800;margin-bottom:12px;color:var(--mint);">iGEM 额外证明</h4>
+          <ul style="list-style:none;display:flex;flex-direction:column;gap:8px;">
+            <li style="font-size:.9rem;color:#444;">✓ 原创研究设计 + 英文学术写作</li>
+            <li style="font-size:.9rem;color:#444;">✓ 8–15人跨学科团队协作</li>
+            <li style="font-size:.9rem;color:#444;">✓ 长达一年的持续投入</li>
+            <li style="font-size:.9rem;color:#444;">✓ 社会影响评估 · 伦理思考</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════ WHO -->
+<section id="who" style="background:linear-gradient(160deg,#fff9ef,#f0fbf8);">
+  <div class="section-inner">
+    <div class="reveal">
+      <div class="section-tag tag-mint">🎯 适合谁？</div>
+      <h2 class="section-title">这是属于你的竞赛吗？</h2>
+      <p class="section-desc">最佳参赛时间：高一（10年级）至高二（11年级）</p>
+    </div>
+
+    <div class="who-cols reveal">
+      <div class="checklist">
+        <h3>✅ 符合以下任意一条就值得认真考虑</h3>
+        <ul>
+          <li>对科研 / 科技创新 / 解决真实问题感兴趣</li>
+          <li>申请英美名校（理工 · 医学 · CS · 生命科学）</li>
+          <li>喜欢生物、医学、环境、计算机或数学</li>
+          <li>希望参与完整项目而非单纯刷题</li>
+          <li>有创造力，喜欢面对开放性问题</li>
+          <li>希望获得国际团队合作经历</li>
+        </ul>
+      </div>
+
+      <div class="timing-cards">
+        <div class="timing-card green">
+          <div class="grade">🟢 高一（10年级）最佳</div>
+          <p>赛后还可高二再战，形成两次连贯的科研履历，背景累积效果最强。</p>
+        </div>
+        <div class="timing-card yellow">
+          <div class="grade">🟡 高二（11年级）适合</div>
+          <p>成果完整赶上申请季，11月大会结束正好用于文书，时间节点完美匹配。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════ COST -->
+<section id="cost">
+  <div class="section-inner">
+    <div class="reveal">
+      <div class="section-tag tag-sky">💰 费用参考</div>
+      <h2 class="section-title">2026 赛季费用参考</h2>
+      <p class="section-desc">以下为官方费用（团队费用），不含实验室材料费、辅导费及差旅费。</p>
+    </div>
+
+    <div class="cost-table reveal">
+      <div class="ct-row header">
+        <div class="ct-cell">费用项目</div>
+        <div class="ct-cell">欧元（€）</div>
+        <div class="ct-cell">人民币参考</div>
+      </div>
+      <div class="ct-row">
+        <div class="ct-cell">🏁 注册费（团队）Stage I</div>
+        <div class="ct-cell">€4,950–5,950</div>
+        <div class="ct-cell">约 ¥38,000–46,000</div>
+      </div>
+      <div class="ct-row">
+        <div class="ct-cell">✅ 确认费（团队）Stage II</div>
+        <div class="ct-cell">€2,750</div>
+        <div class="ct-cell">约 ¥21,000</div>
+      </div>
+      <div class="ct-row">
+        <div class="ct-cell">🎫 大会门票（个人）Stage III</div>
+        <div class="ct-cell">€525–645 / 人</div>
+        <div class="ct-cell">约 ¥4,000–5,000 / 人</div>
+      </div>
+    </div>
+
+    <p class="cost-note reveal">
+      📌 <strong>官方资源：</strong>igem.org · competition.igem.org · 历年 Wiki 全部公开归档<br>
+      💬 <strong>中文社区：</strong>微信搜索「iGEM」<br>
+      🗓️ <strong>2026 年 Grand Jamboree：</strong>11 月 13–16 日 · 法国巴黎凡尔赛门展览中心
+    </p>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════ FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div style="font-size:3rem;margin-bottom:16px;">🧬</div>
+    <h2>科学改变世界的力量</h2>
+    <p>从你愿意真正尝试的那一刻开始<br>iGEM 2026 · 解码生命，重塑未来</p>
+    <div class="footer-links">
+      <a href="https://igem.org" target="_blank">igem.org</a>
+      <a href="https://competition.igem.org" target="_blank">competition.igem.org</a>
+    </div>
+    <div class="small">iGEM 2026 · Grand Jamboree · 11月 13–16日 · 法国巴黎</div>
+  </div>
+</footer>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.12 });
+  reveals.forEach(el => io.observe(el));
+
+  // Stagger children of reveal grids
+  document.querySelectorAll('.toc-grid .toc-card, .what-grid .what-card, .awards-grid .award-card').forEach((el, i) => {
+    el.style.transitionDelay = (i * 0.08) + 's';
+  });
+
+  // Animated counter
+  function animateCounter(el, end, suffix='') {
+    let start = 0, duration = 1500;
+    let step = end / (duration / 16);
+    let timer = setInterval(() => {
+      start += step;
+      if (start >= end) { el.textContent = end + suffix; clearInterval(timer); return; }
+      el.textContent = Math.floor(start) + suffix;
+    }, 16);
+  }
+
+  // Trigger counters when hero stats visible
+  const heroStats = document.querySelectorAll('.hero-stat .num');
+  const vals = [50, 400, 10000, 2003];
+  const suffixes = ['+', '+', '+', ''];
+  const counterObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const idx = [...heroStats].indexOf(e.target);
+        if (idx >= 0) animateCounter(e.target.querySelector('.counter') || e.target, vals[idx], suffixes[idx]);
+        counterObs.unobserve(e.target);
+      }
+    });
+  }, { threshold: .5 });
+  // heroStats already have text; just add animation class
+</script>
+</body>
+</html>
